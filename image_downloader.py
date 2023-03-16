@@ -8,7 +8,6 @@ from PIL import Image, ImageDraw
 special_word = "AK-47"
 
 # Pagina web de la care dorim sa descarcam imaginile
-#url = "https://csgostash.com/weapon/AK-47"
 url = "https://csgostash.com/weapon/" + special_word
 
 # Directorul în care vor fi salvate imaginile
@@ -30,7 +29,7 @@ if response.status_code == 200:
     # Parcurgem continutul paginii web folosind BeautifulSoup
     soup = BeautifulSoup(response.content, "html.parser")
 
-    # Identificam toate imaginile care contin AK-47
+    # Identificam toate imaginile care contin special_word
     images = soup.find_all('img', alt=lambda x: x and special_word in x)
 
     # Descarcam fiecare imagine
@@ -56,7 +55,7 @@ if response.status_code == 200:
                 # Redimensionam imaginea la dimensiunea dorita
                 img.thumbnail(final_size)
 
-                # Cream un canvas de aceeasi dimensiune cu imaginea, si il umplem cu gri
+                # Cream un canvas de aceeasi dimensiune cu imaginea, si o facem transparenta
                 canvas = Image.new("RGBA", final_size, (0, 0, 0, 0))
 
                 # Plasam imaginea descarcata pe canvas
